@@ -2,6 +2,7 @@ package com.example.cursomc.service;
 
 import com.example.cursomc.model.Categoria;
 import com.example.cursomc.repository.CategoriaRepository;
+import com.example.cursomc.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,8 @@ public class CategoriaService {
 
     public Categoria listar(Long id) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
-        return categoria.orElse(null);
+        return categoria.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", " +
+                "Tipo: " + Categoria.class.getName()));
     }
 
     public Categoria criar(@RequestBody Categoria categoria) {
