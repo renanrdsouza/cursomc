@@ -25,7 +25,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public Categoria criar(@RequestParam Categoria categoria) {
+    public Categoria criar(@RequestBody Categoria categoria) {
         categoriaService.criar(categoria);
         return categoria;
     }

@@ -4,6 +4,8 @@ import com.example.cursomc.model.Categoria;
 import com.example.cursomc.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Optional;
 
@@ -18,7 +20,8 @@ public class CategoriaService {
         return categoria.orElse(null);
     }
 
-    public void criar(Categoria categoria) {
+    public Categoria criar(@RequestBody Categoria categoria) {
         categoriaRepository.save(categoria);
+        return categoria;
     }
 }
