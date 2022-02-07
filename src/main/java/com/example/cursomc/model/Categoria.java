@@ -1,10 +1,9 @@
 package com.example.cursomc.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,12 +15,23 @@ public class Categoria implements Serializable {
 
     private String nome;
 
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produto> produtos = new ArrayList<>();
+
     public Categoria() {
 
     }
 
     public Categoria(String nome) {
         this.nome = nome;
+    }
+
+    public List<Produto> getProduto() {
+        return produtos;
+    }
+
+    public void setProduto(List<Produto> produto) {
+        this.produtos = produto;
     }
 
     public Long getId() {
