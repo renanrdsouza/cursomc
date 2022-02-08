@@ -1,6 +1,7 @@
 package com.example.cursomc.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.example.cursomc.repository.EstadoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,40 +10,31 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Categoria implements Serializable {
+public class Estado implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long ig;
     private String nome;
 
-    @JsonManagedReference
-    @ManyToMany(mappedBy = "categorias")
-    private List<Produto> produtos = new ArrayList<>();
+    @OneToMany(mappedBy = "estado")
+    private List<Cidade> cidades = new ArrayList<>();
 
-    public Categoria() {
+    public Estado() {
 
     }
 
-    public Categoria(String nome) {
+    public Estado(String nome) {
         this.nome = nome;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public Long getIg() {
+        return ig;
     }
 
-    public void setProdutos(List<Produto> produto) {
-        this.produtos = produto;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setIg(Long ig) {
+        this.ig = ig;
     }
 
     public String getNome() {
@@ -53,16 +45,24 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
+    public List<Cidade> getCidades() {
+        return cidades;
+    }
+
+    public void setCidades(List<Cidade> cidades) {
+        this.cidades = cidades;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return Objects.equals(id, categoria.id);
+        Estado estado = (Estado) o;
+        return Objects.equals(ig, estado.ig);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(ig);
     }
 }
