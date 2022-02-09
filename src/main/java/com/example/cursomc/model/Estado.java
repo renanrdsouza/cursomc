@@ -1,6 +1,7 @@
 package com.example.cursomc.model;
 
-import com.example.cursomc.repository.EstadoRepository;
+import com.example.cursomc.repository.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Estado implements Serializable {
     private Long ig;
     private String nome;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades = new ArrayList<>();
 
