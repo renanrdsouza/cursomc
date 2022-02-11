@@ -1,9 +1,5 @@
 package com.example.cursomc.model;
 
-import com.example.cursomc.repository.CidadeRepository;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -17,7 +13,6 @@ public class Cidade implements Serializable {
     private Long id;
     private String nome;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;
