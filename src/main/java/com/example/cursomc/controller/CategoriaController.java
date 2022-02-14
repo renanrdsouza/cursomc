@@ -1,14 +1,13 @@
 package com.example.cursomc.controller;
 
 import com.example.cursomc.model.Categoria;
-import com.example.cursomc.repository.*;
 import com.example.cursomc.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/categorias")
@@ -25,8 +24,11 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public Categoria criar(@RequestBody Categoria categoria) {
+    public ResponseEntity<?> criar(@RequestBody Categoria categoria) {
         categoriaService.criar(categoria);
-        return categoria;
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 }

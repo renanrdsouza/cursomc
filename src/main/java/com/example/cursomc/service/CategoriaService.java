@@ -22,7 +22,8 @@ public class CategoriaService {
     }
 
     public Categoria criar(@RequestBody Categoria categoria) {
-        categoriaRepository.save(categoria);
-        return categoria;
+        categoria.setId(null); // garante que o método criar está inserindo algo novo
+        // cas o id não fosse nulo o método save iria como uma atualização e não uma criação
+        return categoriaRepository.save(categoria);
     }
 }
