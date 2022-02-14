@@ -17,18 +17,25 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listar(@PathVariable Long id) {
+    public ResponseEntity<Categoria> listar(@PathVariable Long id) {
 
         Categoria categoria = categoriaService.listar(id);
         return ResponseEntity.ok().body(categoria);
     }
 
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody Categoria categoria) {
-        categoriaService.criar(categoria);
+    public ResponseEntity<Void> criar(@RequestBody Categoria categoria) {
+        categoria = categoriaService.criar(categoria);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> atualizar(@RequestBody Categoria categoria, @PathVariable Long id) {
+        categoria.setId(id);
+        categoria = categoriaService.atualizar(categoria);
+        return ResponseEntity.noContent().build();
     }
 }

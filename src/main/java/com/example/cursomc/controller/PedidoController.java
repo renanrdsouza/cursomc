@@ -16,7 +16,7 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listar(@PathVariable Long id) {
+    public ResponseEntity<Pedido> listar(@PathVariable Long id) {
 
         Pedido pedido = pedidoService.listar(id);
         return ResponseEntity.ok().body(pedido);

@@ -1,11 +1,10 @@
 package com.example.cursomc.service;
 
 import com.example.cursomc.model.Categoria;
-import com.example.cursomc.repository.*;
+import com.example.cursomc.repository.CategoriaRepository;
 import com.example.cursomc.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
@@ -21,9 +20,14 @@ public class CategoriaService {
                 "Tipo: " + Categoria.class.getName()));
     }
 
-    public Categoria criar(@RequestBody Categoria categoria) {
+    public Categoria criar(Categoria categoria) {
         categoria.setId(null); // garante que o método criar está inserindo algo novo
-        // cas o id não fosse nulo o método save iria como uma atualização e não uma criação
+        // caso o id não fosse nulo o método save iria como uma atualização e não uma criação
+        return categoriaRepository.save(categoria);
+    }
+
+    public Categoria atualizar(Categoria categoria) {
+        listar(categoria.getId());
         return categoriaRepository.save(categoria);
     }
 }
