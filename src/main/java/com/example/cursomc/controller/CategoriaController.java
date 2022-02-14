@@ -38,4 +38,10 @@ public class CategoriaController {
         categoria = categoriaService.atualizar(categoria);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        categoriaService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
