@@ -1,12 +1,14 @@
 package com.example.cursomc.service;
 
-import com.example.cursomc.dto.CategoriaDTO;
 import com.example.cursomc.model.Categoria;
 import com.example.cursomc.repository.CategoriaRepository;
 import com.example.cursomc.service.exceptions.DataIntegrityException;
 import com.example.cursomc.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +47,10 @@ public class CategoriaService {
 
     public List<Categoria> listarTodos() {
         return categoriaRepository.findAll();
+    }
+
+    public Page<Categoria> listarPagina(Integer page, Integer linhaPorPagina, String ordenarPor, String direcao) {
+        PageRequest pageRequest = PageRequest.of(page, linhaPorPagina, Sort.Direction.valueOf(direcao), ordenarPor);
+        return categoriaRepository.findAll(pageRequest);
     }
 }
