@@ -1,5 +1,6 @@
 package com.example.cursomc.controller;
 
+import com.example.cursomc.dto.CategoriaDTO;
 import com.example.cursomc.model.Categoria;
 import com.example.cursomc.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categorias")
@@ -43,5 +46,12 @@ public class CategoriaController {
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         categoriaService.deletar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoriaDTO>> listarTodos() {
+        List<Categoria> categoria = categoriaService.listarTodos();
+        List<CategoriaDTO> categoriaDTOS = categoria.stream().map(CategoriaDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(categoriaDTOS);
     }
 }

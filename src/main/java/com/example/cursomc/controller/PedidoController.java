@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/pedidos")
 public class PedidoController {
@@ -26,5 +28,11 @@ public class PedidoController {
     public Pedido criar(@RequestBody Pedido pedido) {
         pedidoService.criar(pedido);
         return pedido;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Pedido>> listarTodos() {
+        List<Pedido> pedidos = pedidoService.listarTodos();
+        return ResponseEntity.ok().body(pedidos);
     }
 }
