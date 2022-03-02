@@ -45,6 +45,7 @@ public class CategoriaController {
         Categoria categoria = categoriaService.fromDTO(categoriaDTO);
 
         categoria.setId(id);
+
         categoria = categoriaService.update(categoria);
 
         return ResponseEntity.noContent().build();
