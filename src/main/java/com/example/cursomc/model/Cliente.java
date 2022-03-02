@@ -35,14 +35,17 @@ public class Cliente implements Serializable {
 
     }
 
-    public Cliente(String nome,
+    public Cliente(Long id,
+                   String nome,
                    String email,
                    String cpfOuCnpj,
-                   TipoCliente tipo) {
+                   TipoCliente tipo
+                   ) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = tipo.getCod();
+        this.tipo = (tipo == null) ? null : tipo.getCod();
     }
 
     public Long getId() {
