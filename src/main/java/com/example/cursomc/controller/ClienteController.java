@@ -1,6 +1,9 @@
 package com.example.cursomc.controller;
 
+import com.example.cursomc.dto.CategoriaDTO;
 import com.example.cursomc.dto.ClienteDTO;
+import com.example.cursomc.dto.ClienteNewDTO;
+import com.example.cursomc.model.Categoria;
 import com.example.cursomc.model.Cliente;
 import com.example.cursomc.model.Cliente;
 import com.example.cursomc.service.ClienteService;
@@ -9,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,9 +35,15 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente insert(@RequestBody Cliente cliente) {
-        clienteService.insert(cliente);
-        return cliente;
+    public ResponseEntity<Void> insert(@RequestBody @Valid ClienteNewDTO clienteNewDTO) {
+        Cliente cliente = clienteService.fromDTO(clienteNewDTO);
+
+        cliente = clienteService.insert(cliente);
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/{id}")
