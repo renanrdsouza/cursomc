@@ -25,10 +25,10 @@ import java.util.Optional;
 public class ClienteService {
 
     @Autowired
-    ClienteRepository clienteRepository;
+    private ClienteRepository clienteRepository;
 
     @Autowired
-    EnderecoRepository enderecoRepository;
+    private EnderecoRepository enderecoRepository;
 
     public Cliente find(Long id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
@@ -90,6 +90,7 @@ public class ClienteService {
 
         cliente.getEnderecos().add(endereco);
         cliente.getTelefones().add(clienteNewDTO.getTelefone1());
+
         if(clienteNewDTO.getTelefone2() != null) {
             cliente.getTelefones().add(clienteNewDTO.getTelefone2());
         }
